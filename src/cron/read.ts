@@ -34,9 +34,10 @@ export async function runReadTask(_: Request) {
         const bookId = task.book.bookId
         const token = task.credential.token
         let credential = await credentialUtil.getByToken(token)
+        console.log(`cookie刷新`)
 
         // 先检查 cookie 是不是可能过期
-        if (Date.now() - credential.updatedAt >= 1000 * (5400 - 30) /* 留30秒空隙 */) {
+        //if (Date.now() - credential.updatedAt >= 1000 * (5400 - 30) /* 留30秒空隙 */) {
             // cookie 可能已经过期，尝试刷新
             const refreshCookieSuccess = await refreshCookie(task.credential)
             if (!refreshCookieSuccess) {
@@ -48,7 +49,7 @@ export async function runReadTask(_: Request) {
             }
             // 刷新之后获取最新的 cookie
             credential = await credentialUtil.getByToken(token)
-        }
+        //}
 
 
         // 计算服务器及客户端加载的时间戳
