@@ -94,7 +94,7 @@ export async function web_login_renewal(url: string, cookie = "") {
   } else {
     // { errCode: -12013, errMsg: "微信登录授权已过期，继续购买需跳转到微信重新登录" }
     // { errCode: -2013, errLog: "C6LyBKI", errMsg: "鉴权失败" }
-    if (data.errCode !== -12013) {
+    if (data.errCode !== -12013 || data.errCode !== -2013) {
       console.warn('/web/login/renewal接口失败', data, cookie)
     }
     throw Error(data.errMsg);
